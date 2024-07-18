@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>TODO List</title>
+</head>
+<body>
+<h1>TODO List</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Completed</th>
+        <th>User</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="todo : ${todoPage.content}">
+        <td th:text="${todo.title}"></td>
+        <td th:text="${todo.completed}"></td>
+        <td th:text="${todo.user.username}"></td>
+        <td>
+            <a th:href="@{/todos/edit/{id}(id=${todo.id})}">Edit</a>
+            <form th:action="@{/todos/delete/{id}(id=${todo.id})}" method="post" style="display:inline;">
+                <button type="submit" onclick="confirmDeletion(event)">Delete</button>
+            </form>
+    </tr>
+    </tbody>
+</table>
+<a href="/todos/create">Create TODO</a>
+<div>
+        <span th:if="${todoPage.hasPrevious()}">
+            <a th:href="@{/todos(page=${todoPage.number - 1})}">&laquo; Previous</a>
+        </span>
+    <span th:if="${todoPage.hasNext()}">
+            <a th:href="@{/todos(page=${todoPage.number + 1})}">Next &raquo;</a>
+        </span>
+</div>
+
+<script>
+    function confirmDeletion(event) {
+        if (!confirm("Are you sure Want to Delete ? This operation cannot be undone.")) {
+            event.preventDefault();
+        }
+    }
+</script>
+</body>
+</html>
