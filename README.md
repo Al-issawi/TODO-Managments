@@ -8,7 +8,7 @@ src/
 ├── main/
 │   ├── java/
 │   │   └── com/
-│   │       └── example/
+│   │       └── gestion/
 │   │           └── todoapp/
 │   │               ├── TodoAppApplication.java
 │   │               ├── controller/
