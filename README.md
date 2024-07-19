@@ -16,10 +16,11 @@ src/
 │   │               ├── repository/
 │   │               ├── service/
 │   │               
-│   ├── resources/
+│   ├── resources/  
 │   │   ├── application.properties  # Configuration for the application database
 │   │   └── templates/              # Thymeleaf templates
-│   └── static/                     # Static resources (e.g., CSS, JavaScript)
+|   |   |  └──HTML Files  
+|   |   └──DDBB
 └── test/
     └── java/
         └── com/
