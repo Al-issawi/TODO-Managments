@@ -17,7 +17,7 @@ public class Todo {
     private Long id;
 
     @NotBlank(message = "Title cannot be empty")
-    @Size(max = 200, message = "Title must be less than 200 characters")
+    @Size(max = 199, message = "Title must be less than 200 characters")
     private String title;
 
     private boolean completed;
