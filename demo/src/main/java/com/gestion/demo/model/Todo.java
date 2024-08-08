@@ -9,6 +9,8 @@ import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.Optional;
+
 @Entity
 public class Todo {
 
@@ -59,4 +61,6 @@ public class Todo {
     public void setUser(User user) {
         this.user = user;
     }
-}
+
+    }
+

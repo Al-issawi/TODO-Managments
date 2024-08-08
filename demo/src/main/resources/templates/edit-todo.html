@@ -1,33 +1,29 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Edit TODO</title>
+    <title>Create/Edit TODO</title>
 </head>
 <body>
-<h1>Edit TODO</h1>
-<form th:action="@{/todos/edit/{id}(id=${todo.id})}" th:object="${todo}" method="post">
+<h1 th:text="${todo.id != null} ? 'Edit TODO' : 'Create TODO'"></h1>
+<form th:action="@{/todos/save}" th:object="${todo}" method="post">
     <div>
-        <label for="title">Title:</label>
-        <input type="text" id="title" th:field="*{title}" />
-        <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+        <label for="title">Title</label>
+        <input type="text" id="title" th:field="*{title}" required>
     </div>
     <div>
-        <label for="completed">Completed:</label>
-        <select id="completed" th:field="*{completed}">
-            <option value="true" th:selected="${todo.completed}">Completed</option>
-            <option value="false" th:selected="${!todo.completed}">Not completed</option>
+        <label for="user">User</label>
+        <select id="user" th:field="*{user}" required>
+            <option th:each="user : ${users}" th:value="${user}" th:text="${user.username}">User</option>
         </select>
     </div>
     <div>
-        <label for="user">User:</label>
-        <select id="user" th:field="*{user.id}">
-            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}" th:selected="${user.id == todo.user.id}"></option>
-        </select>
+        <label for="completed">Completed</label>
+        <input type="checkbox" id="completed" th:field="*{completed}">
     </div>
     <div>
-        <button type="submit">Update</button>
-        <a href="/todos">Cancel</a>
+        <button type="submit">Save</button>
     </div>
 </form>
+<a href="/todos">Back to list</a>
 </body>
 </html>
