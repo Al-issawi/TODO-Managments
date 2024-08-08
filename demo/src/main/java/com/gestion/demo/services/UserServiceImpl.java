@@ -18,6 +18,7 @@ public class UserServiceImpl implements UserService {
     // Injecting UserRepository and TodoRepository dependencies
     @Autowired
     private UserRepository userRepository;
+    private TodoRepository todoRepository;
 
     @Autowired
     private TodoRepository todoRepository;
@@ -40,11 +41,15 @@ public class UserServiceImpl implements UserService {
         return todoRepository.findByTitleContainingAndUser_Username(title, username, pageable);
     }
 
+<<<<<<< HEAD
     // Method to get a user by their username
+=======
+>>>>>>> 938ade34c06d6b731d89e90852faa31dc14892ca
     @Override
     public Optional<User> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+<<<<<<< HEAD
 
     // Method to find all users
     @Override
@@ -53,6 +58,19 @@ public class UserServiceImpl implements UserService {
     }
 
     // Method to save a new user
+=======
+        @Override
+        public List<User> findAllUsers() {
+            return userRepository.findAll();
+
+
+    }
+
+
+
+
+    // Method to save a new  user
+>>>>>>> 938ade34c06d6b731d89e90852faa31dc14892ca
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
@@ -76,4 +94,8 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+
+
+
 }
