@@ -1,15 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>User List</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 10px;
+        }
+        th, td {
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        a, button {
+            margin-right: 5px;
+        }
+    </style>
+    <script>
+        function confirmDelete(event) {
+            var result = confirm("Are you sure you want to delete this user?");
+            if (!result) {
+                event.preventDefault();
+            }
+        }
+    </script>
 </head>
 <body>
 <h1>User List</h1>
+
+<!-- User table -->
 <table>
     <thead>
     <tr>
         <th>Name</th>
         <th>Username</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>Country</th>
+        <th>Zipcode</th>
+
         <th>Actions</th>
     </tr>
     </thead>
@@ -17,23 +49,31 @@
     <tr th:each="user : ${userPage.content}">
         <td th:text="${user.name}"></td>
         <td th:text="${user.username}"></td>
+        <td th:text="${user.address.street}"></td>
+        <td th:text="${user.address.city}"></td>
+        <td th:text="${user.address.country}"></td>
+        <td th:text="${user.address.zipcode}"></td>
+
         <td>
             <a th:href="@{/users/edit/{id}(id=${user.id})}">Edit</a>
-            <form th:action="@{/users/delete/{id}(id=${user.id})}" method="post" style="display:inline;">
+            <form th:action="@{/users/delete/{id}(id=${user.id})}" method="post" style="display:inline;" onsubmit="confirmDelete(event)">
                 <button type="submit">Delete</button>
             </form>
         </td>
     </tr>
     </tbody>
 </table>
-<a href="/users/create">Create User</a>
+
+<!-- Pagination controls -->
 <div>
-        <span th:if="${userPage.hasPrevious()}">
-            <a th:href="@{/users(page=${userPage.number - 1})}">&laquo; Previous</a>
-        </span>
-    <span th:if="${userPage.hasNext()}">
-            <a th:href="@{/users(page=${userPage.number + 1})}">Next &raquo;</a>
-        </span>
+    <span>Page: </span>
+    <a th:href="@{/users(page=${userPage.number - 1})}" th:if="${userPage.hasPrevious()}">Previous</a>
+    <span th:text="${userPage.number + 1}">Current Page</span>
+    <a th:href="@{/users(page=${userPage.number + 1})}" th:if="${userPage.hasNext()}">Next</a>
 </div>
+
+<!-- Link to create a new user -->
+<a href="/users/create">Create User</a>
+
 </body>
 </html>

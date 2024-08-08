@@ -2,47 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>TODO List</title>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <h1>TODO List</h1>
+
+<!-- Filter form -->
+<form action="/todos" method="get">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" value="${title}" />
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" value="${username}" />
+
+    <button type="submit">Filter</button>
+</form>
+
+<!-- TODOs list -->
 <table>
     <thead>
     <tr>
         <th>Title</th>
+        <th>Username</th>
         <th>Completed</th>
-        <th>User</th>
         <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="todo : ${todoPage.content}">
-        <td th:text="${todo.title}"></td>
-        <td th:text="${todo.completed}"></td>
+    <tr th:each="todo : ${todos.content}">
+        <td th:text="${todo.title}" ></td>
         <td th:text="${todo.user.username}"></td>
+        <td th:text="${todo.completed ? 'Completed' : 'Not Completed'}"></td>
         <td>
             <a th:href="@{/todos/edit/{id}(id=${todo.id})}">Edit</a>
             <form th:action="@{/todos/delete/{id}(id=${todo.id})}" method="post" style="display:inline;">
-                <button type="submit" onclick="confirmDeletion(event)">Delete</button>
+                <button type="submit">Delete</button>
             </form>
+        </td>
     </tr>
     </tbody>
 </table>
-<a href="/todos/create">Create TODO</a>
-<div>
-        <span th:if="${todoPage.hasPrevious()}">
-            <a th:href="@{/todos(page=${todoPage.number - 1})}">&laquo; Previous</a>
-        </span>
-    <span th:if="${todoPage.hasNext()}">
-            <a th:href="@{/todos(page=${todoPage.number + 1})}">Next &raquo;</a>
-        </span>
-</div>
 
-<script>
-    function confirmDeletion(event) {
-        if (!confirm("Are you sure Want to Delete ? This operation cannot be undone.")) {
-            event.preventDefault();
-        }
-    }
-</script>
+<!-- Pagination controls -->
+<div>
+    <a th:if="${currentPage > 0}" th:href="@{/todos?page=${currentPage - 1}&title=${title}&username=${username}}">Previous</a>
+    <a th:if="${currentPage < totalPages - 1}" th:href="@{/todos?page=${currentPage + 1}&title=${title}&username=${username}}">Next</a>
+</div>
 </body>
 </html>

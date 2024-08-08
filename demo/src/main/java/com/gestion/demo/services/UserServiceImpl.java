@@ -1,12 +1,15 @@
 package com.gestion.demo.services;
 
+import com.gestion.demo.model.Todo;
 import com.gestion.demo.model.User;
+import com.gestion.demo.repository.TodoRepository;
 import com.gestion.demo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -16,6 +19,7 @@ public class UserServiceImpl implements UserService {
     // Injecting UserRepository dependency
     @Autowired
     private UserRepository userRepository;
+    private TodoRepository todoRepository;
 
     // Method to get a paginated list of users
 
@@ -30,9 +34,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByName(String username) {
-        return Optional.empty();
+    public Page<Todo> getTodosByTitleAndUsername(String title, String username, Pageable pageable) {
+        return todoRepository.findByTitleContainingAndUser_Username(title, username, pageable);
     }
+
+    @Override
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+        @Override
+        public List<User> findAllUsers() {
+            return userRepository.findAll();
+
+
+    }
+
+
+
 
     // Method to save a new  user
     @Override
@@ -95,4 +113,8 @@ public class UserServiceImpl implements UserService {
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
     }
+
+
+
+
 }
