@@ -10,7 +10,12 @@
 	</parent>
 	<groupId>com.gestion</groupId>
 	<artifactId>demo</artifactId>
+<<<<<<< HEAD
 	<version>0.0.2-SNAPSHOT</version>
+=======
+	<version>0.0.2-SNAPSHOT</version> <!--update the version from 0.0.1 -->
+	<packaging>jar</packaging>
+>>>>>>> 61a4bee0a1ceff0110e04c18f6bf0ac8e9ab14f6
 	<name>demo</name>
 	<description>Prueba técnica El reto consiste en crear una aplicación para gestionar listados de tareas de usuarios (TODOs). Inicialmente, la aplicación debe ser accesible públicamente sin necesidad de autenticación</description>
 	<url/>
@@ -84,7 +89,12 @@
 			<artifactId>lombok</artifactId>
 			<version>1.18.30</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.gestion</groupId>
+            <artifactId>demo</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>

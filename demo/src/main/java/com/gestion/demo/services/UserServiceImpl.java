@@ -12,36 +12,62 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
 @Service
 public class UserServiceImpl implements UserService {
 
-    // Injecting UserRepository dependency
+    // Injecting UserRepository and TodoRepository dependencies
     @Autowired
     private UserRepository userRepository;
     private TodoRepository todoRepository;
+<<<<<<< HEAD
+=======
+
+    @Autowired
+    private TodoRepository todoRepository;
+>>>>>>> 61a4bee0a1ceff0110e04c18f6bf0ac8e9ab14f6
 
     // Method to get a paginated list of users
-
     @Override
     public Page<User> getUsers(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
+
     // Method to get a user by their ID
     @Override
     public Optional<User> getUserById(Long id) {
         return userRepository.findById(id);
     }
 
+    // Method to get todos by title and username with pagination
     @Override
     public Page<Todo> getTodosByTitleAndUsername(String title, String username, Pageable pageable) {
         return todoRepository.findByTitleContainingAndUser_Username(title, username, pageable);
     }
 
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    // Method to get a user by their username
+=======
+>>>>>>> 938ade34c06d6b731d89e90852faa31dc14892ca
+>>>>>>> 61a4bee0a1ceff0110e04c18f6bf0ac8e9ab14f6
     @Override
     public Optional<User> getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+
+    // Method to find all users
+    @Override
+    public List<User> findAllUsers() {
+        return userRepository.findAll();
+    }
+
+    // Method to save a new user
+=======
+>>>>>>> 61a4bee0a1ceff0110e04c18f6bf0ac8e9ab14f6
         @Override
         public List<User> findAllUsers() {
             return userRepository.findAll();
@@ -53,46 +79,13 @@ public class UserServiceImpl implements UserService {
 
 
     // Method to save a new  user
+>>>>>>> 938ade34c06d6b731d89e90852faa31dc14892ca
     @Override
     public User saveUser(User user) {
         return userRepository.save(user);
     }
 
-    /*
-     TODO method findbyName (username).
-    @Override
-
-    public Optional<User> findByName(String username) {
-
-        return userRepository.findByName(username);
-    }
-    @Override
-    public String findByName(String username, Model model) {
-        return username;
-    }
-
-
-
-*/
-
- /*   @Override
-    public User updateUser(Long id, User user) {
-        Optional<User> existingUser = userRepository.findById(id);
-        if (existingUser.isPresent()) {
-            User updatedUser = existingUser.get();
-            updatedUser.setName(user.getName());
-            updatedUser.setUsername(user.getUsername());
-            updatedUser.setPassword(user.getPassword());
-            updatedUser.setAddress(user.getAddress());
-            return userRepository.save(updatedUser);
-        } else {
-            throw new RuntimeException("User not found with id " + id);
-        }
-    }
-**/
-
     // Method to update an existing user by their ID
-
     @Override
     public User updateUser(Long id, User updatedUser) {
         return userRepository.findById(id)
@@ -105,10 +98,7 @@ public class UserServiceImpl implements UserService {
                 }).orElseThrow(() -> new RuntimeException("User not found with id " + id));
     }
 
-
-
-
-    // Method to Delete an existing user by their ID
+    // Method to delete an existing user by their ID
     @Override
     public void deleteUserById(Long id) {
         userRepository.deleteById(id);
